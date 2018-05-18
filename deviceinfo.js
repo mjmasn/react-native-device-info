@@ -290,11 +290,17 @@ export default {
   getMaxMemory: function() {
     return RNDeviceInfo.maxMemory;
   },
-  getTotalDiskCapacity: function() {
-    return RNDeviceInfo.totalDiskCapacity;
+  getTotalRootDiskCapacity: function() {
+    return RNDeviceInfo.totalRootDiskCapacity;
   },
-  getFreeDiskStorage: function() {
-    return RNDeviceInfo.freeDiskStorage;
+  getTotalExternalDiskCapacity: function() {
+    return RNDeviceInfo.totalExternalDiskCapacity;
+  },
+  getAvailableRootDiskCapacity: function() {
+    return RNDeviceInfo.availableRootDiskStorage;
+  },
+  getAvailableExternalDiskCapacity: function() {
+    return RNDeviceInfo.availableExternalDiskStorage;
   },
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
