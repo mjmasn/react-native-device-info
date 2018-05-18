@@ -297,10 +297,10 @@ export default {
     return RNDeviceInfo.totalExternalDiskCapacity;
   },
   getAvailableRootDiskCapacity: function() {
-    return RNDeviceInfo.availableRootDiskStorage;
+    return RNDeviceInfo.availableRootDiskCapacity;
   },
   getAvailableExternalDiskCapacity: function() {
-    return RNDeviceInfo.availableExternalDiskStorage;
+    return RNDeviceInfo.availableExternalDiskCapacity;
   },
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
