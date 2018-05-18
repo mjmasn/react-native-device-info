@@ -374,8 +374,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       constants.put("phoneNumber", telMgr.getLine1Number());
     }
     constants.put("carrier", this.getCarrier());
-    constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
-    constants.put("freeDiskStorage", this.getFreeDiskStorage());
+    constants.put("totalRootDiskCapacity", this.getTotalRootDiskCapacity());
+    constants.put("totalExternalDiskCapacity", this.getTotalExternalDiskCapacity());
+    constants.put("availableRootDiskCapacity", this.getAvailableRootDiskCapacity());
+    constants.put("availableExternalDiskCapacity", this.getAvailableExternalDiskCapacity());
     constants.put("installReferrer", this.getInstallReferrer());
 
     Runtime rt = Runtime.getRuntime();
