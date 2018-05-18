@@ -224,10 +224,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getTotalDiskCapacity() {
+  public Long getTotalRootDiskCapacity() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return root.getBlockCount() * root.getBlockSize();
+      return root.getTotalBytes();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -235,10 +235,32 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getFreeDiskStorage() {
+  public Long getTotalExternalDiskCapacity() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return external.getAvailableBlocks() * external.getBlockSize();
+      return external.getTotalBytes();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @ReactMethod
+  public Long getAvailableRootDiskCapacity() {
+    try {
+      StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      return root.getAvailableBytes();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @ReactMethod
+  public Long getAvailableExternalDiskCapacity() {
+    try {
+      StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
+      return external.getAvailableBytes();
     } catch (Exception e) {
       e.printStackTrace();
     }
