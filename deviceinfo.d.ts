@@ -39,8 +39,10 @@ declare const _default: {
   getCarrier: () => string;
   getTotalMemory: () => number;
   getMaxMemory: () => number;
-  getTotalDiskCapacity: () => number;
-  getFreeDiskStorage: () => number;
+  getTotalRootDiskCapacity: () => number;
+  getTotalExternalDiskCapacity: () => number;
+  getAvailableRootDiskCapacity: () => number;
+  getAvailableExternalDiskCapacity: () => number;
   getBatteryLevel: () => Promise<number>;
   isLandscape: () => boolean;
   isAirPlaneMode: () => Promise<boolean>;
