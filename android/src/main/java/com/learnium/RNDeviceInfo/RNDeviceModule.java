@@ -224,10 +224,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getTotalRootDiskCapacity() {
+  public Double getTotalRootDiskCapacity() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return Math.toIntExact(root.getTotalBytes());
+      double totalBytes = root.getTotalBytes();
+      return totalBytes;
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -235,10 +236,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getTotalExternalDiskCapacity() {
+  public Double getTotalExternalDiskCapacity() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return Math.toIntExact(external.getTotalBytes());
+      double totalBytes = external.getTotalBytes();
+      return totalBytes;
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -246,10 +248,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getAvailableRootDiskCapacity() {
+  public Double getAvailableRootDiskCapacity() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return Math.toIntExact(root.getAvailableBytes());
+      double availableBytes = root.getAvailableBytes();
+      return availableBytes;
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -257,10 +260,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getAvailableExternalDiskCapacity() {
+  public Double getAvailableExternalDiskCapacity() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return Math.toIntExact(external.getAvailableBytes());
+      double availableBytes = external.getAvailableBytes();
+      return availableBytes;
     } catch (Exception e) {
       e.printStackTrace();
     }
