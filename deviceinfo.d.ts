@@ -40,8 +40,10 @@ declare const _default: {
   getTotalMemory: () => number;
   getMaxMemory: () => number;
   getTotalRootDiskCapacity: () => number;
+  getTotalDataDiskCapacity: () => number;
   getTotalExternalDiskCapacity: () => number;
   getAvailableRootDiskCapacity: () => number;
+  getAvailableDataDiskCapacity: () => number;
   getAvailableExternalDiskCapacity: () => number;
   getBatteryLevel: () => Promise<number>;
   isLandscape: () => boolean;
