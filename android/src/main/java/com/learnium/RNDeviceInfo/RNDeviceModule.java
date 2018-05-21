@@ -236,6 +236,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public Double getTotalDataDiskCapacity() {
+    try {
+      StatFs data = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+      double totalBytes = data.getTotalBytes();
+      return totalBytes;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+  
+  @ReactMethod
   public Double getTotalExternalDiskCapacity() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
@@ -252,6 +264,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
       double availableBytes = root.getAvailableBytes();
+      return availableBytes;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @ReactMethod
+  public Double getAvailableDataDiskCapacity() {
+    try {
+      StatFs data = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+      double availableBytes = data.getAvailableBytes();
       return availableBytes;
     } catch (Exception e) {
       e.printStackTrace();
@@ -379,8 +403,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
     constants.put("carrier", this.getCarrier());
     constants.put("totalRootDiskCapacity", this.getTotalRootDiskCapacity());
+    constants.put("totalDataDiskCapacity", this.getTotalDataDiskCapacity());
     constants.put("totalExternalDiskCapacity", this.getTotalExternalDiskCapacity());
     constants.put("availableRootDiskCapacity", this.getAvailableRootDiskCapacity());
+    constants.put("availableDataDiskCapacity", this.getAvailableDataDiskCapacity());
     constants.put("availableExternalDiskCapacity", this.getAvailableExternalDiskCapacity());
     constants.put("installReferrer", this.getInstallReferrer());
 
