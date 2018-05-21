@@ -293,11 +293,17 @@ export default {
   getTotalRootDiskCapacity: function() {
     return RNDeviceInfo.totalRootDiskCapacity;
   },
+  getTotalDataDiskCapacity: function() {
+    return RNDeviceInfo.totalDataDiskCapacity;
+  },
   getTotalExternalDiskCapacity: function() {
     return RNDeviceInfo.totalExternalDiskCapacity;
   },
   getAvailableRootDiskCapacity: function() {
     return RNDeviceInfo.availableRootDiskCapacity;
+  },
+  getAvailableDataDiskCapacity: function() {
+    return RNDeviceInfo.availableDataDiskCapacity;
   },
   getAvailableExternalDiskCapacity: function() {
     return RNDeviceInfo.availableExternalDiskCapacity;
