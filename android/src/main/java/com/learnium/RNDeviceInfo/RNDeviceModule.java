@@ -225,6 +225,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public Double getTotalRootDiskCapacity() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      return null;
+    }
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
       double totalBytes = root.getTotalBytes();
@@ -237,6 +240,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public Double getTotalDataDiskCapacity() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      return null;
+    }
     try {
       StatFs data = new StatFs(Environment.getDataDirectory().getAbsolutePath());
       double totalBytes = data.getTotalBytes();
@@ -246,9 +252,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
     return null;
   }
-  
+
   @ReactMethod
   public Double getTotalExternalDiskCapacity() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      return null;
+    }
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
       double totalBytes = external.getTotalBytes();
@@ -261,6 +270,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public Double getAvailableRootDiskCapacity() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      return null;
+    }
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
       double availableBytes = root.getAvailableBytes();
@@ -273,6 +285,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public Double getAvailableDataDiskCapacity() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      return null;
+    }
     try {
       StatFs data = new StatFs(Environment.getDataDirectory().getAbsolutePath());
       double availableBytes = data.getAvailableBytes();
@@ -285,6 +300,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public Double getAvailableExternalDiskCapacity() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      return null;
+    }
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
       double availableBytes = external.getAvailableBytes();
