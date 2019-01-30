@@ -46,4 +46,8 @@ declare module.exports: {
   isLandscape: () => boolean,
   isAirPlaneMode: () => Promise<boolean>,
   getDeviceType: () => DeviceType,
+  getAvailableRootDiskCapacity: () => number,
+  getTotalRootDiskCapacity: () => number,
+  getAvailableExternalDiskCapacity: () => number,
+  getTotalExternalDiskCapacity: () => number,
 };
