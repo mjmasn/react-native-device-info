@@ -6,11 +6,22 @@
 //  Copyright © 2015 Learnium Limited. All rights reserved.
 //
 
+#include <ifaddrs.h>
+#include <arpa/inet.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
+
+typedef NS_ENUM(NSInteger, DeviceType) {
+    DeviceTypeHandset,
+    DeviceTypeTablet,
+    DeviceTypeTv,
+    DeviceTypeUnknown
+};
+
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Unknown", nil]
 
 @interface RNDeviceInfo()
 @property (nonatomic) bool isEmulator;
@@ -105,6 +116,10 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPhone10,4":@"iPhone 8",        // (model A1905)
                               @"iPhone10,2":@"iPhone 8 Plus",   // (model A1864, A1898, A1899)
                               @"iPhone10,5":@"iPhone 8 Plus",   // (model A1897)
+                              @"iPhone11,2":@"iPhone XS",       // (model A2097, A2098)
+                              @"iPhone11,4":@"iPhone XS Max",   // (model A1921, A2103)
+                              @"iPhone11,6":@"iPhone XS Max",   // (model A2104)
+                              @"iPhone11,8":@"iPhone XR",       // (model A1882, A1719, A2105)
                               @"iPad4,1"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Cellular
                               @"iPad4,3"   :@"iPad Air",        // 5th Generation iPad (iPad Air)
@@ -126,6 +141,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPad7,2"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Cellular
                               @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Wifi
                               @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
+                              @"iPad7,5"   :@"iPad (6th generation)",// iPad (6th generation) - Wifi
+                              @"iPad7,6"   :@"iPad (6th generation)",// iPad (6th generation) - Cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
@@ -195,9 +212,19 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return currentTimeZone.name;
 }
 
+- (DeviceType) getDeviceType
+{
+    switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
+        case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
+        case UIUserInterfaceIdiomPad: return DeviceTypeTablet;
+        case UIUserInterfaceIdiomTV: return DeviceTypeTv;
+        default: return DeviceTypeUnknown;
+    }
+}
+
 - (bool) isTablet
 {
-  return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+  return [self getDeviceType] == DeviceTypeTablet;
 }
 
 // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
@@ -290,8 +317,45 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
+             @"deviceType": [DeviceTypeValues objectAtIndex: [self getDeviceType]],
              };
 }
+
+RCT_EXPORT_METHOD(getMacAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSString *address = @"02:00:00:00:00:00";
+    resolve(address);
+} 
+
+RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSString *address = @"0.0.0.0";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = 0;
+    // retrieve the current interfaces - returns 0 on success
+    success = getifaddrs(&interfaces);
+    if (success == 0) {
+        // Loop through linked list of interfaces
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                // Check if interface is en0 which is the wifi connection on the iPhone
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    // Get NSString from C String
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+
+                }
+
+            }
+
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // Free memory
+    freeifaddrs(interfaces);
+    resolve(address);
+} 
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {

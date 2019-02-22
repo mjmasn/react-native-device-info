@@ -1,6 +1,67 @@
 ## Release Notes
 
-### next
+### 0.26.4
+ * Fix hasNotch() support for LG phones (https://github.com/rebeccahughes/react-native-device-info/pull/573)
+
+### 0.26.3
+ * Fixed getDeviceType method (https://github.com/rebeccahughes/react-native-device-info/pull/571)
+
+### 0.26.2
+ * Added Huawei P20 Lite to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/568)
+
+### 0.26.1
+ * Added OnePlus 6T to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/563)
+
+### 0.26.0
+ * Added `getDeviceType()` and used it in `isTablet()` (https://github.com/rebeccahughes/react-native-device-info/pull/560)
+
+### 0.25.1
+ * Added Google Pixel 3XL to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/535)
+
+### 0.25.0
+ * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
+ * Compare `hasNotch()` devices with lowercase (https://github.com/rebeccahughes/react-native-device-info/pull/537)
+ * Added several devices to `hasNotch()` (#533, #549, #550)
+
+### 0.24.3
+ * Support React Native Windows 0.57, minimal version is now 10.0.14393 for the target platform
+
+### 0.24.2
+ * Update typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/498)
+
+### 0.24.1
+ * Update build.gradle to remove compile warning (https://github.com/rebeccahughes/react-native-device-info/pull/520)
+
+### 0.24.0
+ * Added `isLandscape()` (https://github.com/rebeccahughes/react-native-device-info/pull/504)
+
+### 0.23.0
+ * Add `hasNotch()` (https://github.com/rebeccahughes/react-native-device-info/pull/500)
+
+### 0.22.6
+ * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/rebeccahughes/react-native-device-info/pull/499) 
+
+### 0.22.5
+ * Fix typescript declaration export (https://github.com/rebeccahughes/react-native-device-info/pull/478)
+
+### 0.22.4
+ * Shrank the npm package size (https://github.com/rebeccahughes/react-native-device-info/issues/477)
+
+### 0.22.3
+ * Fixed `eslint-plugin-import` error (https://github.com/rebeccahughes/react-native-device-info/pull/466)
+
+### 0.22.2
+ * Fixed Android build error introduced in 0.22.1 (https://github.com/rebeccahughes/react-native-device-info/pull/460)
+
+### 0.22.1
+
+ * Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
+ * getDeviceCountry
+ * getDeviceLocale
+ 
+### 0.22.0
+
+* Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/rebeccahughes/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
 
 ### 0.21.5
 
